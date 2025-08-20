@@ -77,9 +77,10 @@ export const updateProperty=async (req,res)=>{
                 msg:"user not authorized"
             })
         }
+        const { title, description, price, location }=req.body
         const updated= await prisma.property.update({
             where:{id:property.id},
-            data:req.body
+            data:{ title, description, price, location }
         })
         res.json(updated)
         
@@ -115,6 +116,42 @@ export const deleteProperty=async(req,res)=>{
     } catch (error) {
         res.json({
             msg:error
+        })
+    }
+}
+
+export const filtersProperty=async (req,res)=>{
+    // All that code with filters, gte, lte, contains, etc. is written in the way Prisma understands queries.
+
+    // Prisma doesn’t directly take raw SQL
+
+    //Instead, Prisma expects a JavaScript object (query filter) that it can translate into SQL behind the scenes.
+    try {
+        const { location,minPrice,maxPrice }=req.query;
+        const filters={};
+        if(location){
+            filters.location={
+                contains:location,
+                mode:"insensitive"
+            }
+        }
+        if(minPrice || maxPrice){
+            filters.price={};
+            if(minPrice) filters.price.gte=parseFloat(minPrice)
+            if(maxPrice) filters.price.lte=parseFloat(maxPrice)
+        }
+    
+        const properties=await prisma.property.findMany({
+            where:filters,
+            include:{
+                owner:true
+            }
+        })
+        res.json(properties);
+        
+    } catch (error) {
+        res.json({
+            msg:`something went wrong in filter controller: ${error}`
         })
     }
 }
