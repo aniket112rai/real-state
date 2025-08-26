@@ -24,11 +24,15 @@ export const removeFavorite=async(req,res)=>{
             where:{
                 userId:req.user.id,
                 propertyId:parseInt(req.params.propertyId),
-            },
+            }
+        
         })
+        
         res.json({
+            
             msg:"removed from favorite"
         })
+        
     } catch (error) {
         res.json({
             msg:error

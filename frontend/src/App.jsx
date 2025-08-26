@@ -8,6 +8,8 @@ import NotFound from './pages/NotFound'
 import CreateProperty from './pages/CreateProperty'
 import { AuthProvider } from './useContext/useAuth'
 import ProtectedRoute from './components/ProtectedRoute'
+import Random from './pages/Random'
+import FavoriteProperties from './pages/FavoriteProperties'
 const App = () => {
   return (
     <div>
@@ -24,6 +26,8 @@ const App = () => {
               }/>
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/signin" element={<Signin/>}/>
+              <Route path='/random' element={<Random/>}/>
+              <Route path='/favorite' element={<FavoriteProperties/>}/>
             </Route>
             <Route path='*' element={<NotFound/>} />
           </Routes>

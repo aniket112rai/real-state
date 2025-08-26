@@ -14,9 +14,9 @@ const Property=()=> {
   };
 
   return (
-    <>
-        <div className="w-full flex  justify-center items-center pt-6">
-            <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md  space-y-4 border-2 border-gray-200 rounded-lg p-6 mt-10  ">
+    <div className=" h-screen bg-gray-200">
+        <div className="w-full flex  justify-center items-center pt-6 bg-gray-200">
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md  space-y-4 border-2 border-gray-200 rounded-4xl p-6 mt-10  ">
         {/* location */}
             <div className=" gap-5  md:flex ">
                         <div className="p-2"> 
@@ -74,7 +74,7 @@ const Property=()=> {
         {/* loading */}
         <LoadingProperties/>
         
-    </>
+    </div>
   );
 }
 
