@@ -4,12 +4,15 @@ import React, { useEffect, useState } from 'react'
 
 import Favorite from '../icons/Favorite';
 import Location from '../icons/Location';
+import { useNavigate } from 'react-router-dom';
 
 const LoadingProperties = () => {
-    
+    const navigate=useNavigate();
     const [properties,setProperties]=useState([]);
     const [favorites, setFavorites] = useState([])
     const [loading,setLoading]=useState(true);
+
+    
 
     useEffect(()=>{
         const fetchProperty=async ()=>{
@@ -22,15 +25,27 @@ const LoadingProperties = () => {
                     withCredentials: true
                   })
                 setProperties(res.data)
-                setFavorites(favRes.data.map(fav => fav.propertyId))
+                if(Array.isArray(favRes.data)){
+
+                    setFavorites(favRes.data.map(fav => fav.propertyId))
+                }
+                else{
+                    setFavorites([])
+                }
                 console.log(favRes.data.map(fav => fav.propertyId))
                 setLoading(false)
             } catch (error) {
                 console.log(error)
+                setFavorites([])
+
+                setLoading(false);
             }
         }
         fetchProperty()
     },[])
+
+
+    
     if(loading){
         return <div>loading...</div>
     }
@@ -44,7 +59,7 @@ const LoadingProperties = () => {
                     alt={props.title}
                     className="w-full h-72 object-fill hover:scale-110 transition-transform duration-500 [filter:brightness(65%)]"
                 />
-                <div className='absolute top-5 left-5 bg-gray-200 text-black px-2 py-1 rounded-md font-semibold'>₹{props.price}</div>
+                <div className='absolute top-5 left-5 bg-gray-200 text-black px-2 py-1 rounded-md font-semibold'>₹{props.price.toLocaleString()}</div>
 
                 <div className='absolute top-5 right-5 bg-gray-100 rounded-4xl p-2'><Favorite initialActive={favorites.includes(props.id)} propertyId={props.id} /></div>
 
@@ -57,7 +72,7 @@ const LoadingProperties = () => {
                     </div>
                 </div>
                 <div className='absolute text-white bottom-3 right-3'>
-                    <button className="mt-2 bg-blue-600 px-3 py-1 rounded-md text-sm font-semibold hover:bg-blue-700 transition">
+                    <button onClick={()=>navigate(`/property/${props.id}`)} className="mt-2 bg-blue-600 px-3 py-1 rounded-md text-sm font-semibold hover:bg-blue-700 transition">
                         View More
                     </button>
                 </div>    

@@ -50,7 +50,7 @@ export const getOneProperty=async (req,res)=>{
     try {
         const property=await prisma.property.findUnique({
             where:{
-                id:parseInt(req.params.id)
+                id:parseInt(req.params.propertyId)
             },
             include:{
                 owner:true
@@ -59,9 +59,11 @@ export const getOneProperty=async (req,res)=>{
         res.json(property)
         
     } catch (error) {
+        
         res.json({
-            msg:error
+            msg:error.message
         })
+        
     }
 }
 

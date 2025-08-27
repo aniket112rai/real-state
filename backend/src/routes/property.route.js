@@ -6,7 +6,7 @@ const router=Router();
 router.post("/",authMiddleware,createProperty)
 router.get("/",getProperty)
 router.get("/filter",filtersProperty);
-router.get("/:id",getOneProperty)
+router.get("/:propertyId",getOneProperty)
 router.put("/:id",authMiddleware,updateProperty)
 router.delete("/:id",authMiddleware,deleteProperty)
 export default router;

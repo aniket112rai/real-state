@@ -10,6 +10,7 @@ import { AuthProvider } from './useContext/useAuth'
 import ProtectedRoute from './components/ProtectedRoute'
 import Random from './pages/Random'
 import FavoriteProperties from './pages/FavoriteProperties'
+import ViewProperty from './pages/ViewProperty'
 const App = () => {
   return (
     <div>
@@ -24,10 +25,11 @@ const App = () => {
                   <CreateProperty/>
                 </ProtectedRoute>  
               }/>
-              <Route path="/signup" element={<Signup/>}/>
-              <Route path="/signin" element={<Signin/>}/>
+              <Route path="/auth/signup" element={<Signup/>}/>
+              <Route path="/auth/signin" element={<Signin/>}/>
               <Route path='/random' element={<Random/>}/>
               <Route path='/favorite' element={<FavoriteProperties/>}/>
+              <Route path='/property/:propertyId' element={<ViewProperty/>} />
             </Route>
             <Route path='*' element={<NotFound/>} />
           </Routes>

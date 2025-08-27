@@ -1,70 +1,79 @@
 import React from "react";
 
-const properties = [
-  {
-    id: 1,
-    title: "3BHK Flat",
-    location: "New Delhi",
-    price: "₹ 10,000",
-    image:
-      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    id: 2,
-    title: "Luxury Villa",
-    location: "Mumbai",
-    price: "₹ 25,000",
-    image:
-      "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    id: 3,
-    title: "2BHK Apartment",
-    location: "Bangalore",
-    price: "₹ 15,000",
-    image:
-      "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-];
-
 const Random = () => {
+  // dummy frontend-only data
+  const propertyData = {
+    id: 1,
+    title: "Luxury Villa with Pool",
+    description:
+      "A stunning 4BHK villa featuring modern architecture, a private pool, and landscaped garden. Located in a peaceful neighborhood, perfect for family living.",
+    price: 8500000,
+    location: "Bangalore, India",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
+    owner: {
+      name: "John Doe",
+      email: "john@example.com",
+    },
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
-      {properties.map((property) => (
-        <div
-          key={property.id}
-          className="relative w-full rounded-2xl overflow-hidden shadow-lg group"
-        >
-          {/* Property Image */}
+    <div className="bg-gray-100 min-h-screen">
+      <div className="max-w-5xl mx-auto">
+        {/* Hero Image */}
+        <div className="relative h-[400px]">
           <img
-            src={property.image}
-            alt={property.title}
-            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+            src={propertyData.imageUrl}
+            alt={propertyData.title}
+            className="w-full h-full object-cover rounded-xl"
           />
-
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-
-          {/* Top Elements */}
-          <div className="absolute top-3 left-3 bg-white/80 text-gray-900 font-semibold px-3 py-1 rounded-lg text-sm">
-            {property.price}
-          </div>
-          <button className="absolute top-3 right-3 bg-white/80 p-2 rounded-full hover:bg-red-200 transition">
-            ❤️
-          </button>
-
-          {/* Bottom Content */}
-          <div className="absolute bottom-3 left-3 text-white">
-            <h3 className="text-lg font-bold">{property.title}</h3>
-            <p className="flex items-center gap-1 text-sm text-gray-200">
-              📍 {property.location}
+          <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 rounded-xl">
+            <h1 className="text-3xl font-bold text-white">
+              {propertyData.title}
+            </h1>
+            <p className="text-lg text-gray-200">📍 {propertyData.location}</p>
+            <p className="text-2xl font-semibold text-green-400 mt-2">
+              ₹{propertyData.price.toLocaleString()}
             </p>
-            <button className="mt-2 bg-blue-600 px-3 py-1 rounded-md text-sm font-semibold hover:bg-blue-700 transition">
-              View More
-            </button>
           </div>
         </div>
-      ))}
+
+        {/* Details Section */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Left (Details) */}
+          <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-xl font-bold mb-3">Property Details</h2>
+            <p className="text-gray-700 leading-relaxed">
+              {propertyData.description}
+            </p>
+
+            <div className="mt-6">
+              <h3 className="font-semibold text-lg">Additional Info:</h3>
+              <ul className="list-disc pl-6 text-gray-600">
+                <li>ID: {propertyData.id}</li>
+                <li>Location: {propertyData.location}</li>
+                <li>Price: ₹{propertyData.price.toLocaleString()}</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right (Owner Info) */}
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-lg font-bold mb-3">Owner Info</h2>
+            <p className="text-gray-700">👤 {propertyData.owner.name}</p>
+            <p className="text-gray-600">✉️ {propertyData.owner.email}</p>
+
+            <div className="mt-4 flex gap-3">
+              <button className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600">
+                ❤️ Favorite
+              </button>
+              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">
+                📞 Contact
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -14,8 +14,8 @@ const Header = () => {
                 <div onClick={()=>navigate("/favorite")} className='cursor-pointer'>Get favorite</div>
                 <div onClick={()=>navigate("/")} className='cursor-pointer'>Buy Property</div>
                 <div onClick={()=>navigate("/createProperty")} className='cursor-pointer'>Sell Property</div>
-                <div onClick={()=>navigate("/signin")}  className='cursor-pointer'>Login</div>
-                <div onClick={()=>navigate("/signup")} className='cursor-pointer'>Register</div>
+                <div onClick={()=>navigate("/auth/signin")}  className='cursor-pointer'>Login</div>
+                <div onClick={()=>navigate("/auth/signup")} className='cursor-pointer'>Register</div>
             </div>
 
             <div onClick={()=>{setOpen(!open)}} className='cursor-pointer pr-6 sm:hidden '>
@@ -27,8 +27,8 @@ const Header = () => {
                 <div onClick={()=>navigate("/")} className="cursor-pointer">Buy Property</div>
                 <div onClick={()=>navigate("/createProperty")} className="cursor-pointer">Sell Property</div>
                 <div onClick={()=>navigate("/favorite")} className="cursor-pointer">Get favorite</div>
-                <div onClick={()=>navigate("/signin")} className="cursor-pointer">Login</div>
-                <div onClick={()=>navigate("/signup")} className="cursor-pointer">Register</div>
+                <div onClick={()=>navigate("/auth/signin")} className="cursor-pointer">Login</div>
+                <div onClick={()=>navigate("/auth/signup")} className="cursor-pointer">Register</div>
               </div>
             )}
 
