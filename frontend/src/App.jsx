@@ -30,10 +30,18 @@ const App = () => {
               <Route path="/auth/signup" element={<Signup/>}/>
               <Route path="/auth/signin" element={<Signin/>}/>
               <Route path='/random' element={<Random/>}/>
-              <Route path='/favorite' element={<FavoriteProperties/>}/>
+              <Route path='/favorite' element={
+                <ProtectedRoute>
+                  <FavoriteProperties/>
+                </ProtectedRoute>
+              }/>
               <Route path='/property/:propertyId' element={<ViewProperty/>} />
               <Route path='/myproperty/update/:propertyId' element={<UpdateProperty/>} />
-              <Route path='/myproperty' element={<MyProperty/>} />
+              <Route path='/myproperty' element={
+                <ProtectedRoute>
+                  <MyProperty/>
+                </ProtectedRoute>
+              } />
             </Route>
             <Route path='*' element={<NotFound/>} />
           </Routes>

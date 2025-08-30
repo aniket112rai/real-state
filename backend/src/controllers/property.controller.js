@@ -181,8 +181,8 @@ export const filtersProperty=async (req,res)=>{
         }
         if(minPrice || maxPrice){
             filters.price={};
-            if(minPrice) filters.price.gte=parseFloat(minPrice)
-            if(maxPrice) filters.price.lte=parseFloat(maxPrice)
+            if(minPrice) filters.price.gte=parseInt(minPrice)
+            if(maxPrice) filters.price.lte=parseInt(maxPrice)
         }
     
         const properties=await prisma.property.findMany({

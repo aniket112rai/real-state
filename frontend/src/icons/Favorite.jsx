@@ -1,17 +1,26 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const Favorite = ({propertyId,initialActive = false}) => {
     const [color,setColor]=useState(initialActive)
+    const navigate=useNavigate()
     async function onclick(){
         try {
             if(!color){
-                await axios.post(`http://localhost:3000/favorite/${propertyId}`,
+                const fav=await axios.post(`http://localhost:3000/favorite/${propertyId}`,
                    {},
                 {
                     withCredentials:true
                 })
-                setColor(true)
+                
+                
+                if(!(fav.data.msg=="user is not authorized")) setColor(true)
+                else{
+                    navigate('/auth/signin')
+                }
 
             }
             else{
