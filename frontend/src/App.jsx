@@ -11,6 +11,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Random from './pages/Random'
 import FavoriteProperties from './pages/FavoriteProperties'
 import ViewProperty from './pages/ViewProperty'
+import MyProperty from './pages/MyProperty'
+import UpdateProperty from './pages/UpdateProperty'
 const App = () => {
   return (
     <div>
@@ -30,6 +32,8 @@ const App = () => {
               <Route path='/random' element={<Random/>}/>
               <Route path='/favorite' element={<FavoriteProperties/>}/>
               <Route path='/property/:propertyId' element={<ViewProperty/>} />
+              <Route path='/myproperty/update/:propertyId' element={<UpdateProperty/>} />
+              <Route path='/myproperty' element={<MyProperty/>} />
             </Route>
             <Route path='*' element={<NotFound/>} />
           </Routes>

@@ -2,10 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Favorite from '../icons/Favorite'
 import Location from '../icons/Location'
+import { useNavigate } from 'react-router-dom'
 
 const FavoriteProperties = () => {
     const [favorite,setFavorite]=useState([])
     const [loading,setLoading]=useState(true)
+    const navigate=useNavigate()
     useEffect(()=>{
         const data=async ()=>{
             try {
@@ -24,6 +26,13 @@ const FavoriteProperties = () => {
     },[])
 
     if(loading) return <div>loading...</div>
+    if(!loading && favorite.length==0){
+        return <div className=' flex justify-center items-center w-full h-screen'>
+            <div className='text-3xl font-bold'>
+                No Favorite List
+            </div>
+        </div>
+    }
   return (
     <div className='bg-gray-200 min-h-screen'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 '>
@@ -48,7 +57,7 @@ const FavoriteProperties = () => {
                         </div>
                     </div>
                     <div className='absolute text-white bottom-3 right-3'>
-                        <button className="mt-2 bg-blue-600 px-3 py-1 rounded-md text-sm font-semibold hover:bg-blue-700 transition">
+                        <button onClick={()=>navigate(`/property/${props.id}`)}  className="mt-2 bg-blue-600 px-3 py-1 rounded-md text-sm font-semibold hover:bg-blue-700 transition">
                             View More
                         </button>
                     </div>    

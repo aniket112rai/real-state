@@ -44,7 +44,28 @@ export const getProperty=async(req,res)=>{
         })
     }
 }
+export const getMyProperty=async(req,res)=>{
+    try {
+        const myProperty=await prisma.property.findMany({
+            where:{ownerId:req.user.id},
+            include:{
+                owner: {
+                    select:{
+                        id:true,
+                        name:true,
+                        email:true
+                    }
+                }
+            }
 
+        })
+        res.json(myProperty)
+    } catch (error) {
+        res.json({
+            msg:error
+        })
+    }
+}
 export const getOneProperty=async (req,res)=>{
     
     try {
@@ -69,26 +90,33 @@ export const getOneProperty=async (req,res)=>{
 
 
 export const updateProperty=async (req,res)=>{
-    
     try {
         const property=await prisma.property.findUnique({
             where:{
-                id:parseInt(req.params.id)
+                id:parseInt(req.params.propertyId)
             }
         })
         if(property.ownerId!=req.user.id){
-            res.json({
+            return res.json({
                 msg:"user not authorized"
             })
         }
-        const { title, description, price, location }=req.body
-        const updated= await prisma.property.update({
-            where:{id:property.id},
-            data:{ title, description, price, location }
-        })
+        const { title, description, price, location,imageUrl }=req.body
+
+        const updated = await prisma.property.update({
+            where: { id: property.id },
+            data: {
+              title: title ?? property.title,
+              description: description ?? property.description,
+              location: location ?? property.location,
+              imageUrl: imageUrl ?? property.imageUrl,
+              price: price ? Number(price) : property.price
+            }
+          });
+                   
         res.json(updated)
         
-    } catch (error) {
+    } catch (error) {  
         res.json({
             msg:error
         })
@@ -96,28 +124,40 @@ export const updateProperty=async (req,res)=>{
 }
 
 export const deleteProperty=async(req,res)=>{
-    
+    console.log("req.user:", req.user); 
+    console.log("req.params:", req.params.propertyId);
     try {
         const property=await prisma.property.findUnique({
             where:{
-                id:parseInt(req.params.id)
+                id:parseInt(req.params.propertyId)
             }
         })
+        console.log(property.id)
+        console.log("hello1")
+        if (!property) {
+            return res.status(404).json({ msg: "Property not found" });
+        }
+        console.log("hello2")
         if(property.ownerId!=req.user.id){
-            res.json({
+            return res.json({
                 msg:"not authorized"
             })
         }
+        console.log("hello3")
+        console.log(property.id)
         await prisma.property.delete({
             where:{
-                id:property.id
+                id:parseInt(property.id)
             }
         })
+        console.log("hello4")
         res.json({
             msg:"property deleted"
         })
+        console.log("hello5")
         
     } catch (error) {
+        console.log("hello6")
         res.json({
             msg:error
         })

@@ -80,7 +80,7 @@ const Signin = () => {
                 >
                   Signin
                 </button>
-                  <div className='text-xs px-2'>Doesn't have an account? <span onClick={()=>navigate("/signup")} className='text-blue-700 underline cursor-pointer'>Register</span></div>
+                  <div className='text-xs px-2'>Doesn't have an account? <span onClick={()=>navigate("/auth/signup")} className='text-blue-700 underline cursor-pointer'>Register</span></div>
               </form>
             </div>
           </div>

@@ -19,7 +19,7 @@ const Signup = () => {
      
       
       await signup(data.name,data.email,data.password)
-      navigate("/signin")
+      navigate("/auth/signin")
       
     } catch (error) {
       console.error("signup failed:", error.response?.data || error.message);
@@ -94,7 +94,7 @@ const Signup = () => {
                 >
                   Signup
                 </button>
-                <div className='text-xs px-2'>Already have an account? <span onClick={()=>navigate("/signin")} className='text-blue-700 underline cursor-pointer'>Login</span></div>
+                <div className='text-xs px-2'>Already have an account? <span onClick={()=>navigate("/auth/signin")} className='text-blue-700 underline cursor-pointer'>Login</span></div>
               </form>
             </div>
           </div>

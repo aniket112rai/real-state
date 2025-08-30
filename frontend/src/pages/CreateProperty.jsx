@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const CreateProperty = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
+    const navigate=useNavigate()
     const [imagePreview,setImagePreview]=useState(null);
     const [uploading,setUploading]=useState(false)
 
@@ -39,6 +40,8 @@ const CreateProperty = () => {
             reset()
             setImagePreview(null);
             setUploading(false)
+
+            navigate('/')
 
         } catch (error) {
             console.error("error:", error)
