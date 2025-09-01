@@ -4,6 +4,17 @@ import prisma from "../prismaClient.js";
 export const register=async (req,res)=>{
     try {
         const {name,email,password}=req.body;
+        const isUserPresent=await prisma.user.findFirst({
+            where:{
+                email:email
+            }
+        })
+        if(isUserPresent){
+            res.json({
+                msg:"user already exist",
+                success:false
+            })
+        }
         const hashed=await bcrypt.hash(password,10)
 
         const user=await prisma.user.create({
@@ -15,11 +26,13 @@ export const register=async (req,res)=>{
         })
         return res.json({
             msg:"user created successfully",
+            success:true,
             user
         })
     } catch (error) {
         return res.json({
-            error:error
+            error:error,
+            success:false
         })
     }
 }
@@ -33,13 +46,15 @@ export const login=async (req,res)=>{
         })
         if(!user){
             return res.json({
-                msg:"user not found"
+                msg:"user not found",
+                success:false
             })
         }
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch){
             return res.json({
-                msg:"incorrect password"
+                msg:"incorrect password",
+                success:false
             })
         }
         const token=jwt.sign({id:user.id},process.env.JWT_SECRET)
@@ -50,7 +65,8 @@ export const login=async (req,res)=>{
             maxAge:24*60*60*1000,
         })
         return res.json({
-            msg:"login successfully"
+            msg:"login successfully",
+            success:true
         })
     } catch (error) {
         return res.json({

@@ -16,8 +16,13 @@ const Signin = () => {
   const onSubmit = async (data) => {
 
     try {
-      await login(data.email,data.password)
-      navigate("/")
+      const res=await login(data.email,data.password)
+      if(res.success==true){
+        navigate("/")
+      }
+      else{
+        alert(res.msg)
+      }
       
     } catch (error) {
       console.error("signin failed:", error.response?.data || error.message);

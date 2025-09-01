@@ -18,8 +18,14 @@ const Signup = () => {
     try {
      
       
-      await signup(data.name,data.email,data.password)
-      navigate("/auth/signin")
+      const res=await signup(data.name,data.email,data.password)
+      if(res.success){
+
+        navigate("/auth/signin")
+      }
+      else{
+        alert(res.msg)
+      }
       
     } catch (error) {
       console.error("signup failed:", error.response?.data || error.message);

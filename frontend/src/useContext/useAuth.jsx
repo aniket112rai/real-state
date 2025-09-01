@@ -30,7 +30,7 @@ export const AuthProvider=({ children })=>{
 
 
     const login=async (email,password)=>{
-        await axios.post("http://localhost:3000/auth/login",
+        const response=await axios.post("http://localhost:3000/auth/login",
             {email,password},
             {withCredentials:true}
         )
@@ -38,14 +38,16 @@ export const AuthProvider=({ children })=>{
             withCredentials: true,
           });
         if (res.data.loggedIn) setUser(res.data.user);
+        return response.data
     }
 
     const signup = async (name, email, password) => {
-        await axios.post(
+        const res=await axios.post(
           "http://localhost:3000/auth/register",
           { name, email, password },
           { withCredentials: true }
         );
+        return res.data;
         
 
     };
