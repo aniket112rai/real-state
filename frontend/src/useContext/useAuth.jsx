@@ -45,7 +45,7 @@ export const AuthProvider=({ children })=>{
         const res=await axios.post(
           "http://localhost:3000/auth/register",
           { name, email, password },
-          { withCredentials: true }
+          
         );
         return res.data;
         

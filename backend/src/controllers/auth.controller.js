@@ -10,7 +10,7 @@ export const register=async (req,res)=>{
             }
         })
         if(isUserPresent){
-            res.json({
+            return res.json({
                 msg:"user already exist",
                 success:false
             })
